@@ -1,9 +1,18 @@
+"use client";
+
 import Image from "next/image";
 import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
+import { getAllProject } from "@/lib/actions";
 
-export default async function ProjectsTable() {
+export default function ProjectsTable() {
+  const { data: projects } = useQuery({
+    queryKey: ["projects"],
+    queryFn: getAllProject,
+  });
+
   return (
     <div className="mt-6 flow-root ">
       <div className="inline-block min-w-full align-middle">
@@ -35,8 +44,14 @@ export default async function ProjectsTable() {
                 <span>Apr 28, 2024</span>
 
                 <div className="flex justify-end gap-2">
+                  <Link href="/dashboard/projects/1/view">
+                    <Button size="middle" icon={<EyeOutlined />} />
+                  </Link>
+                  <Link href="/dashboard/projects/1/edit">
+                    <Button size="middle" icon={<EditOutlined />} />{" "}
+                  </Link>
+
                   <Button size="middle" icon={<DeleteOutlined />} />
-                  <Button size="middle" icon={<EditOutlined />} />
                 </div>
               </div>
             </div>
@@ -56,60 +71,46 @@ export default async function ProjectsTable() {
               </tr>
             </thead>
             <tbody className="bg-white">
-              <tr
-                // key={invoice.id}
-                className="w-full border-b py-3 text-sm last-of-type:border-none">
-                <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                  <h1>First Project one two</h1>
-                </td>
+              {projects?.map((project: any) => (
+                <tr
+                  key={project.id}
+                  className="w-full border-b py-3 text-sm last-of-type:border-none">
+                  <td className="whitespace-nowrap py-3 pl-6 pr-3">
+                    <h1>{project.name}</h1>
+                  </td>
 
-                <td className="whitespace-nowrap px-3 py-3 min-w-28">
-                  <div className="flex -space-x-1 overflow-hidden">
-                    <Image
-                      width={28}
-                      height={28}
-                      className="inline-block rounded-full ring-2 ring-white"
-                      src="https://i.ibb.co/crT77Gt/man-4.png"
-                      alt={`s profile picture`}
-                    />
-                    <Image
-                      width={28}
-                      height={28}
-                      className="inline-block rounded-full ring-2 ring-white"
-                      src="https://i.ibb.co/crT77Gt/man-4.png"
-                      alt={`s profile picture`}
-                    />
-                    <Image
-                      width={28}
-                      height={28}
-                      className="inline-block rounded-full ring-2 ring-white"
-                      src="https://i.ibb.co/crT77Gt/man-4.png"
-                      alt={`s profile picture`}
-                    />
-                    <Image
-                      width={28}
-                      height={28}
-                      className="inline-block rounded-full ring-2 ring-white"
-                      src="https://i.ibb.co/crT77Gt/man-4.png"
-                      alt={`s profile picture`}
-                    />
-                  </div>
-                </td>
-                <td className="whitespace-nowrap px-3 py-3">Apr 28, 2024</td>
+                  <td className="whitespace-nowrap px-3 py-3 min-w-40">
+                    <div className="flex -space-x-1 overflow-hidden">
+                      {project.users.slice(0, 5).map((user: any) => (
+                        <Image
+                          key={user.id}
+                          width={28}
+                          height={28}
+                          className="inline-block rounded-full ring-2 ring-white"
+                          src={user.img}
+                          alt={`${user.name} profile picture`}
+                        />
+                      ))}
+                    </div>
+                  </td>
+                  <td className="whitespace-nowrap px-3 py-3">
+                    {project.createAt}
+                  </td>
 
-                <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                  <div className="flex justify-end gap-3">
-                    <Link href="/dashboard/projects/1/view">
-                      <Button size="middle" icon={<EyeOutlined />} />
-                    </Link>
-                    <Link href="/dashboard/projects/1/edit">
-                      <Button size="middle" icon={<EditOutlined />} />{" "}
-                    </Link>
+                  <td className="whitespace-nowrap py-3 pl-6 pr-3">
+                    <div className="flex justify-end gap-3">
+                      <Link href="/dashboard/projects/1/view">
+                        <Button size="middle" icon={<EyeOutlined />} />
+                      </Link>
+                      <Link href="/dashboard/projects/1/edit">
+                        <Button size="middle" icon={<EditOutlined />} />{" "}
+                      </Link>
 
-                    <Button size="middle" icon={<DeleteOutlined />} />
-                  </div>
-                </td>
-              </tr>
+                      <Button size="middle" icon={<DeleteOutlined />} />
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

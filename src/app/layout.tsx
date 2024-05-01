@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ConfigProvider } from "antd";
 import { inter } from "@/components/ui/font";
+import Provider from "@/provider/Provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,7 +26,7 @@ export default function RootLayout({
                 borderRadius: 0,
               },
             }}>
-            {children}
+            <Provider>{children}</Provider>
           </ConfigProvider>
         </AntdRegistry>
       </body>

@@ -4,12 +4,24 @@ import { lusitana } from "@/components/ui/font";
 import { Button, Input } from "antd";
 import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
 import ProjectsTable from "@/components/projects/table";
+import { getAllProject } from "@/lib/actions";
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from "@tanstack/react-query";
 
 export const metadata: Metadata = {
-  title: "Invoices",
+  title: "Projects",
 };
 
-const Projects = () => {
+export default async function Projects() {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: ["projects"],
+    queryFn: getAllProject,
+  });
+
   return (
     <div className="w-full">
       <div className="flex w-full items-center justify-between">
@@ -26,10 +38,10 @@ const Projects = () => {
         </Button>
       </div>
       <div className=" md:w-[465px] w-full lg:w-full overflow-y-auto">
-        <ProjectsTable />
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <ProjectsTable />
+        </HydrationBoundary>
       </div>
     </div>
   );
-};
-
-export default Projects;
+}
