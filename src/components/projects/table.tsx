@@ -18,43 +18,39 @@ export default function ProjectsTable() {
       <div className="inline-block min-w-full align-middle">
         <div className=" bg-gray-50 p-2 md:pt-0">
           <div className="md:hidden">
-            <div
-              // key={invoice.id}
-              className="mb-2 w-full  bg-white p-4">
-              <div className=" border-b pb-4 flex justify-between items-start">
-                <h1 className="mb-2">First Project two three</h1>
-                <div className="flex -space-x-1 overflow-hidden">
-                  <Image
-                    width={28}
-                    height={28}
-                    className="inline-block rounded-full ring-2 ring-white"
-                    src="https://i.ibb.co/crT77Gt/man-4.png"
-                    alt={`s profile picture`}
-                  />
-                  <Image
-                    width={28}
-                    height={28}
-                    className="inline-block rounded-full ring-2 ring-white"
-                    src="https://i.ibb.co/crT77Gt/man-4.png"
-                    alt={`s profile picture`}
-                  />
+            {projects.map((project: any) => (
+              <div key={project.id} className="mb-2 w-full  bg-white p-4">
+                <div className=" border-b pb-4 flex justify-between items-start">
+                  <h1 className="mb-2">{project.name}</h1>
+                  <div className="flex -space-x-1 overflow-hidden">
+                    {project.users.slice(0, 2).map((user: any) => (
+                      <Image
+                        key={user.id}
+                        width={28}
+                        height={28}
+                        className="inline-block rounded-full ring-2 ring-white"
+                        src={user.img}
+                        alt={`${user.name} profile picture`}
+                      />
+                    ))}
+                  </div>
+                </div>
+                <div className="flex w-full items-center justify-between pt-4">
+                  <span>{project.createAt}</span>
+
+                  <div className="flex justify-end gap-2">
+                    <Link href={`/dashboard/projects/${project.id}/view`}>
+                      <Button size="middle" icon={<EyeOutlined />} />
+                    </Link>
+                    <Link href={`/dashboard/projects/${project.id}/edit`}>
+                      <Button size="middle" icon={<EditOutlined />} />{" "}
+                    </Link>
+
+                    <Button size="middle" icon={<DeleteOutlined />} />
+                  </div>
                 </div>
               </div>
-              <div className="flex w-full items-center justify-between pt-4">
-                <span>Apr 28, 2024</span>
-
-                <div className="flex justify-end gap-2">
-                  <Link href="/dashboard/projects/1/view">
-                    <Button size="middle" icon={<EyeOutlined />} />
-                  </Link>
-                  <Link href="/dashboard/projects/1/edit">
-                    <Button size="middle" icon={<EditOutlined />} />{" "}
-                  </Link>
-
-                  <Button size="middle" icon={<DeleteOutlined />} />
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
           <table className="hidden min-w-full  text-gray-900 md:table">
             <thead className=" text-left text-sm font-normal">
