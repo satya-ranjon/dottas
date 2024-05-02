@@ -1,7 +1,11 @@
 import Activates from "@/components/projects/activates";
 import Board from "@/components/taskboard/tasks";
 import Breadcrumb from "@/components/ui/breadcrumb";
-import { getSingleProject, getSingleProjectActivates } from "@/lib/actions";
+import {
+  getAllUsers,
+  getSingleProject,
+  getSingleProjectActivates,
+} from "@/lib/actions";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import React from "react";
@@ -12,9 +16,10 @@ export default async function SingleProject({
   params: { id: string };
 }) {
   const { id } = params;
-  const [project, activates] = await Promise.all([
+  const [project, activates, users] = await Promise.all([
     getSingleProject(id),
     getSingleProjectActivates(id),
+    getAllUsers(),
   ]);
 
   if (!project) {
@@ -47,9 +52,7 @@ export default async function SingleProject({
         </div>
       </div>
       <div className=" flex flex-col xl:flex-row justify-start items-start gap-10">
-        <div className="flex w-full h-full min-w-[350px] max-w-[730px] overflow-x-auto gap-3 overflow-auto mt-10 bg-gray-50 p-3 ">
-          <Board id={id} />
-        </div>
+        <Board id={id} users={users} />
         <div className=" w-full xl:w-[400px] mt-10">
           <Activates activates={activates} />
         </div>

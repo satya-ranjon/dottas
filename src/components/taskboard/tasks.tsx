@@ -58,51 +58,56 @@ const Board = ({ id, users }: { id?: string; users: any }) => {
   return (
     <div className="">
       <div className="my-2 flex justify-start items-center gap-3">
-        <Select
-          onChange={(e) => setStatus(e)}
-          showSearch
-          style={{ width: 120 }}
-          placeholder="Filter Status"
-          optionFilterProp="children"
-          options={[
-            {
-              value: "",
-              label: "All",
-            },
-            {
-              value: "To Do",
-              label: "To Do",
-            },
-            {
-              value: "In Progress",
-              label: "In Progress",
-            },
-            {
-              value: "Done",
-              label: "Done",
-            },
-          ]}
-        />
-        <Select
-          onChange={(e) => setUserID(e)}
-          showSearch
-          style={{ width: 120 }}
-          placeholder="Filter Users"
-          optionFilterProp="children"
-          options={[
-            {
-              value: "",
-              label: "All",
-            },
-            ...userOptions,
-          ]}
-        />
-        <DatePicker placeholder="Dateline" onChange={onChange} />
-        <Input
-          value={title}
-          placeholder="Serch by Title"
-          onChange={(e) => setTitle(e.target.value)}
-        />
+        <div className="flex flex-col md:flex-row gap-3 items-center justify-start">
+          <Select
+            onChange={(e) => setStatus(e)}
+            showSearch
+            style={{ width: 120 }}
+            placeholder="Filter Status"
+            optionFilterProp="children"
+            options={[
+              {
+                value: "",
+                label: "All",
+              },
+              {
+                value: "To Do",
+                label: "To Do",
+              },
+              {
+                value: "In Progress",
+                label: "In Progress",
+              },
+              {
+                value: "Done",
+                label: "Done",
+              },
+            ]}
+          />
+          <Select
+            onChange={(e) => setUserID(e)}
+            showSearch
+            style={{ width: 120 }}
+            placeholder="Filter Users"
+            optionFilterProp="children"
+            options={[
+              {
+                value: "",
+                label: "All",
+              },
+              ...userOptions,
+            ]}
+          />
+        </div>
+        <div className="flex flex-col md:flex-row gap-3 items-center justify-start">
+          <DatePicker placeholder="Dateline" onChange={onChange} />
+          <Input
+            className=" max-w-80"
+            value={title}
+            placeholder="Serch by Title"
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </div>
       </div>
       <div className="flex w-full h-full min-w-[350px] max-w-[730px] overflow-x-auto gap-3 bg-gray-50 p-3 ">
         <div className="flex h-full w-full gap-3 overflow-auto  ">
