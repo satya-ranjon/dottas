@@ -47,3 +47,8 @@ export async function deleteProject(id: string, data: IProject) {
   });
   revalidatePath("/dashboard/projects");
 }
+
+export async function getSingleTask(id: string) {
+  const response = await fetch(`http://localhost:4000/tasks/${id}`);
+  return response.json();
+}

@@ -78,7 +78,7 @@ const Card: React.FC<CardProps> = ({
         onDragStart={(e) => handleDragStart(e, { title, id, column })}
         className="cursor-grab max-w-56 border border-neutral-400 bg-white p-3 active:cursor-grabbing">
         <div className="text-sm flex justify-between items-start gap-2 ">
-          <Link href={`/dashboard/projects/${id}/view`}>
+          <Link href={`/dashboard/tasks/${id}/view`}>
             <h1 className="cursor-pointer">{title.slice(0, 50)}...</h1>
           </Link>
 
