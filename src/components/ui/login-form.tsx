@@ -1,51 +1,71 @@
-import { UserOutlined, KeyOutlined } from "@ant-design/icons";
-import { Input } from "antd";
-import { Button } from "antd";
+"use client";
+import { UserOutlined } from "@ant-design/icons";
+import { Input, Button, Form, FormProps } from "antd";
+import { useRouter } from "next/navigation";
+
+type FieldType = {
+  email?: string;
+  password?: string;
+};
 
 export default function LoginForm() {
+  const router = useRouter();
+
+  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
+    router.push("/dashboard/projects");
+  };
+
   return (
-    <form className="space-y-3">
+    <Form onFinish={onFinish} className="space-y-3" layout="vertical">
       <div className="flex-1  bg-gray-50 px-6 pb-4 pt-8">
         <div className="w-full">
-          <div>
-            <label
-              className="mb-3 mt-5 text-xs font-medium text-gray-900 flex justify-start items-center gap-3"
-              htmlFor="email">
-              <span>Email</span>
-              <span className=" text-red-500">Email is Require</span>
-            </label>
+          <Form.Item<FieldType>
+            name="email"
+            label="Email"
+            rules={[
+              {
+                type: "email",
+                message: "The input is not valid E-mail!",
+              },
+              {
+                required: true,
+                message: "Please input your E-mail!",
+              },
+            ]}>
             <Input
-              name="email"
-              status="error"
               size="large"
               placeholder="Enter your email address"
               prefix={<UserOutlined />}
             />
-          </div>
-          <div className="mt-4">
-            <label
-              className="mb-3 mt-5 text-xs font-medium text-gray-900 flex justify-start items-center gap-3"
-              htmlFor="password">
-              <span>Password</span>
-              <span className=" text-red-500">Password is Require</span>
-            </label>
-
-            <Input
-              status="error"
-              name="password"
+          </Form.Item>
+          <Form.Item<FieldType>
+            name="password"
+            label="Password"
+            rules={[
+              {
+                required: true,
+                message: "Please input your Password!",
+              },
+              {
+                type: "string",
+                min: 4,
+                message: "Password must be at least 4 characters long!",
+              },
+            ]}>
+            <Input.Password
               type="password"
               size="large"
-              placeholder="input password"
-              prefix={<KeyOutlined />}
+              placeholder="Enter your email address"
+              prefix={<UserOutlined />}
             />
-          </div>
+          </Form.Item>
         </div>
         <div className="mt-4 w-full">
-          <Button size="large" type="primary" block>
+          <Button htmlType="submit" size="large" type="primary" block>
             Login
           </Button>
         </div>
       </div>
-    </form>
+    </Form>
   );
 }
