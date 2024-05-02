@@ -99,10 +99,10 @@ export default function ProjectsTable() {
 
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
-                      <Link href="/dashboard/projects/1/view">
+                      <Link href={`/dashboard/projects/${project.id}/view`}>
                         <Button size="middle" icon={<EyeOutlined />} />
                       </Link>
-                      <Link href="/dashboard/projects/1/edit">
+                      <Link href={`/dashboard/projects/${project.id}/edit`}>
                         <Button size="middle" icon={<EditOutlined />} />{" "}
                       </Link>
 
