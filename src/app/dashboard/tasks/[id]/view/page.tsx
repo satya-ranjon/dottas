@@ -39,7 +39,7 @@ export default async function SingleTask({
 
         <div className=" w-full max-w-[600px] p-6 bg-gray-50 space-y-3 ">
           <h1 className="font-semibold"> Assigned Team Members </h1>
-          {task.assigneds.map((user: any, i) => (
+          {task.assigneds.map((user: any, i: any) => (
             <div className="flex justify-start items-start gap-4" key={i}>
               <Image
                 key={user.id}

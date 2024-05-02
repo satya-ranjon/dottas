@@ -13,7 +13,7 @@ export default function ProjectsTable() {
     queryFn: getAllProject,
   });
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: any) => {
     await deleteProject(id);
   };
 

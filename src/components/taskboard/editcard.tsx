@@ -1,9 +1,9 @@
 "use client";
 
-import { EditOutlined, PlusOutlined } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 import { Button, DatePicker, Modal, Select, Space } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import type { DatePickerProps, SelectProps } from "antd";
 import dayjs from "dayjs";
 import { getAllUsers } from "@/lib/actions";
@@ -12,7 +12,7 @@ import { IUser } from "../projects/form";
 import { useParams } from "next/navigation";
 import { useTasks } from "@/store/tasks";
 
-const EditCard = ({ project }) => {
+const EditCard = ({ project }: { project: any }) => {
   const { updateTasks } = useTasks();
   const [users, setUsers] = useState<IUser[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -52,9 +52,8 @@ const EditCard = ({ project }) => {
       deadlines,
       assigneds: selectedUsers,
     };
-    await updateTasks(project.id, data).then(() => {
-      setIsModalOpen(false);
-    });
+    await updateTasks(project.id, data);
+    setIsModalOpen(false);
   };
 
   return (
@@ -87,7 +86,7 @@ const EditCard = ({ project }) => {
             mode="multiple"
             style={{ width: "100%" }}
             placeholder="Select Team Members"
-            defaultValue={project.assigneds.map((user) => user.id)}
+            defaultValue={project.assigneds.map((user: any) => user.id)}
             onChange={handleChange}
             options={options}
             optionRender={(option) => (

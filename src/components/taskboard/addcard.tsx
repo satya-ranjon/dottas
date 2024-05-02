@@ -16,7 +16,7 @@ const AddTask = ({ column }: { column: string }) => {
   const { postTasks } = useTasks();
   const [users, setUsers] = useState<IUser[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [deadlines, setDatelines] = useState("");
+  const [deadlines, setDatelines] = useState<string | string[]>("");
   const [title, setTitle] = useState("");
   const [selectedUsers, setSelectedUsers] = useState<IUser[]>([]);
   const { id: projectId } = useParams();
@@ -52,12 +52,11 @@ const AddTask = ({ column }: { column: string }) => {
       deadlines,
       assigneds: selectedUsers,
     };
-    await postTasks(data).then(() => {
-      setTitle("");
-      setDatelines("");
-      setSelectedUsers([]);
-      setIsModalOpen(false);
-    });
+    await postTasks(data);
+    setTitle("");
+    setDatelines("");
+    setSelectedUsers([]);
+    setIsModalOpen(false);
   };
   return (
     <div>
@@ -102,11 +101,7 @@ const AddTask = ({ column }: { column: string }) => {
               </Space>
             )}
           />
-          <DatePicker
-            defaultOpenValue={dayjs(deadlines)}
-            placeholder="Dateline"
-            onChange={onChange}
-          />
+          <DatePicker placeholder="Dateline" onChange={onChange} />
 
           <Button
             onClick={handleAddTask}

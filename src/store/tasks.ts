@@ -20,13 +20,16 @@ type State = {
   setTasks: (tasks: Task[]) => void;
   // updateTasks: (newTask: Task) => void;
   getTasks: (projectId?: string) => void;
+  postTasks: (projectId?: any) => void;
+  deleteTask: (projectId?: any) => void;
+  updateTasks: (projectId?: string | undefined, data?: any) => void;
 };
 
 export const useTasks = create<State>((set) => ({
   tasks: [],
   setTasks: (tasks) => set({ tasks }),
   postTasks: async (data: any) => {
-    await fetch("http://localhost:4000/tasks", {
+    await fetch("https://server-u1z6.onrender.com/tasks", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
@@ -38,7 +41,7 @@ export const useTasks = create<State>((set) => ({
     });
   },
   deleteTask: async (id: string) => {
-    await fetch(`http://localhost:4000/tasks/${id}`, {
+    await fetch(`https://server-u1z6.onrender.com/tasks/${id}`, {
       method: "DELETE",
     });
     set((state) => {
@@ -47,13 +50,13 @@ export const useTasks = create<State>((set) => ({
   },
   getTasks: async (projectId?: string) => {
     const response = await fetch(
-      `http://localhost:4000/tasks?projectId=${projectId}`
+      `https://server-u1z6.onrender.com/tasks?projectId=${projectId}`
     );
     const tasks = await response.json();
     set({ tasks });
   },
   updateTasks: async (projectId: string | undefined, data: any) => {
-    await fetch(`http://localhost:4000/tasks/${projectId}`, {
+    await fetch(`https://server-u1z6.onrender.com/tasks/${projectId}`, {
       method: "PATCH",
       body: JSON.stringify(data),
       headers: {

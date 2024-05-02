@@ -7,10 +7,10 @@ import { DatePicker, DatePickerProps, Input, Select } from "antd";
 const Board = ({ id, users }: { id?: string; users: any }) => {
   const { tasks, getTasks, setTasks } = useTasks();
 
-  const [allTask, setAllTask] = useState(tasks);
+  const [allTask, setAllTask] = useState<any>(tasks);
   const [status, setStatus] = useState("");
   const [userID, setUserID] = useState("");
-  const [dateline, setDatelines] = useState("");
+  const [dateline, setDatelines] = useState<string | string[]>("");
   const [title, setTitle] = useState("");
 
   useEffect(() => {
@@ -18,20 +18,20 @@ const Board = ({ id, users }: { id?: string; users: any }) => {
   }, []);
 
   function filterTasks(
-    tasks: Task[],
+    tasks: any,
     column?: string,
-    deadline?: string,
+    deadline?: string | string[],
     assignedID?: string,
     title?: string
   ): Task[] {
-    return tasks.filter((task) => {
+    return tasks.filter((task: any) => {
       if (!column && !deadline && !assignedID && !title) return task;
 
       const columnMatch = !column || task.column === column;
       const deadlineMatch = !deadline || task.deadlines === deadline;
       const assignedMatch =
         !assignedID ||
-        task.assigneds.some((assigned) => assigned.id === assignedID);
+        task.assigneds.some((assigned: any) => assigned.id === assignedID);
 
       const titleMatch =
         !title || task.title.toLowerCase().includes(title.toLowerCase());
@@ -49,7 +49,7 @@ const Board = ({ id, users }: { id?: string; users: any }) => {
 
   const cardTasks = status || userID || dateline || title ? allTask : tasks;
 
-  const userOptions = users.map((i) => ({ value: i.id, label: i.name }));
+  const userOptions = users.map((i: any) => ({ value: i.id, label: i.name }));
 
   const onChange: DatePickerProps["onChange"] = (date, dateString) => {
     setDatelines(dateString);

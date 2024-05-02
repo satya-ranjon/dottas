@@ -1,16 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import DropIndicator from "./DropIndicator";
+import DropIndicator from "./dropIndicator";
 import type { MenuProps } from "antd";
 import dayjs from "dayjs";
-import type { MenuProps } from "antd";
-import { Button, Dropdown, Space } from "antd";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  EllipsisOutlined,
-} from "@ant-design/icons";
+import { Button, Dropdown } from "antd";
+import { DeleteOutlined, EllipsisOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import Image from "next/image";
 import { useTasks } from "@/store/tasks";
@@ -75,7 +70,7 @@ const Card: React.FC<CardProps> = ({
         layout
         layoutId={id}
         draggable={true}
-        onDragStart={(e) => handleDragStart(e, { title, id, column })}
+        onDragStart={(e: any) => handleDragStart(e, { title, id, column })}
         className="cursor-grab max-w-56 border border-neutral-400 bg-white p-3 active:cursor-grabbing">
         <div className="text-sm flex justify-between items-start gap-2 ">
           <Link href={`/dashboard/tasks/${id}/view`}>

@@ -1,14 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import DropIndicator from "./DropIndicator";
+import DropIndicator from "./dropIndicator";
 import Card from "./card";
-import { Button, Modal } from "antd";
 import AddTask from "./addcard";
 import { useTasks } from "@/store/tasks";
-// import AddCard from "./AddCard";
 
-const Column = ({ title, headingColor, cards, column, setCards }) => {
+// import AddCard from "./AddCard";i
+interface IColumn {
+  title: any;
+  headingColor: any;
+  cards: any;
+  column: any;
+  setCards: any;
+}
+
+const Column = ({ title, headingColor, cards, column, setCards }: IColumn) => {
   const [active, setActive] = useState(false);
   const { updateTasks } = useTasks();
 
@@ -21,7 +28,7 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
 
   const handleDragEnd = (e: any) => {
     const cardId = e.dataTransfer.getData("cardId");
-    const task = cards.find((c) => c.id === cardId);
+    const task = cards.find((c: any) => c.id === cardId);
     const updateData = { ...task, column };
 
     updateTasks(cardId, updateData);
@@ -58,22 +65,22 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
     }
   };
 
-  const handleDragOver = (e) => {
+  const handleDragOver = (e?: any) => {
     e.preventDefault();
     highlightIndicator(e);
 
     setActive(true);
   };
 
-  const clearHighlights = (els) => {
+  const clearHighlights = (els?: any) => {
     const indicators = els || getIndicators();
 
-    indicators.forEach((i) => {
+    indicators.forEach((i: any) => {
       i.style.opacity = "0";
     });
   };
 
-  const highlightIndicator = (e) => {
+  const highlightIndicator = (e?: any) => {
     const indicators = getIndicators();
 
     clearHighlights(indicators);
@@ -83,11 +90,11 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
     el.element.style.opacity = "1";
   };
 
-  const getNearestIndicator = (e, indicators) => {
+  const getNearestIndicator = (e?: any, indicators?: any) => {
     const DISTANCE_OFFSET = 50;
 
     const el = indicators.reduce(
-      (closest, child) => {
+      (closest: any, child: any) => {
         const box = child.getBoundingClientRect();
 
         const offset = e.clientY - (box.top + DISTANCE_OFFSET);
@@ -116,7 +123,7 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
     setActive(false);
   };
 
-  const filteredCards = cards.filter((c) => c.column === column);
+  const filteredCards = cards.filter((c: any) => c.column === column);
 
   return (
     <div className="min-w-56  shrink-0">
@@ -133,7 +140,7 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
         className={`h-[600px] w-full transition-colors ${
           active ? "bg-primary-hover" : ""
         }`}>
-        {filteredCards.map((c) => {
+        {filteredCards.map((c: any) => {
           return <Card key={c.id} {...c} handleDragStart={handleDragStart} />;
         })}
         <DropIndicator beforeId={null} column={column} />
