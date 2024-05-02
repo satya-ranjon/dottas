@@ -14,10 +14,13 @@
     "@tanstack/react-query": "^5.32.1",
     "antd": "^5.16.5",
     "clsx": "^2.1.1",
+    "dayjs": "^1.11.11",
+    "framer-motion": "^11.1.7",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",
-    "zod": "^3.23.5"
+    "zod": "^3.23.5",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.32.1",

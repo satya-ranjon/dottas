@@ -1,10 +1,9 @@
 "use client";
 
-import { Avatar, Image, List } from "antd";
+import { Avatar, List } from "antd";
 import React from "react";
 
 export default function Activates({ activates }: { activates: any[] }) {
-  console.log(activates);
   return (
     <div>
       <List

@@ -30,6 +30,7 @@ export default function EditProjectForm({
   ]);
   const [projectName, setProjectName] = useState<string>(project.name);
   const defaultUsers = project.users.map((user) => user.id);
+
   const options: SelectProps["options"] = users.map((user) => {
     return { label: user.name, value: user.id, data: user };
   });

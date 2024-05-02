@@ -5,13 +5,17 @@ import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import { getAllProject } from "@/lib/actions";
+import { deleteProject, getAllProject } from "@/lib/actions";
 
 export default function ProjectsTable() {
   const { data: projects } = useQuery({
     queryKey: ["projects"],
     queryFn: getAllProject,
   });
+
+  const handleDelete = async (id) => {
+    await deleteProject(id);
+  };
 
   return (
     <div className="mt-6 flow-root ">
@@ -102,7 +106,11 @@ export default function ProjectsTable() {
                         <Button size="middle" icon={<EditOutlined />} />{" "}
                       </Link>
 
-                      <Button size="middle" icon={<DeleteOutlined />} />
+                      <Button
+                        onClick={() => handleDelete(project.id)}
+                        size="middle"
+                        icon={<DeleteOutlined />}
+                      />
                     </div>
                   </td>
                 </tr>
